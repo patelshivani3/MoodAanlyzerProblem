@@ -33,5 +33,45 @@ namespace MoodAnalyzerProblem.Reflection
                 throw new CustomMoodAnalyzerException("Constructor not found", CustomMoodAnalyzerException.ExceptionTypes.NO_SUCH_METHOD);
             }
         }
+
+        public object CreateMoodAnalyserParameterizedObject(string className, string constructor, string message)
+        { 
+            try
+            {
+                Type type = typeof(MoodAnalyzer);
+                if (type.Name.Equals(className) || type.FullName.Equals(className))
+                {
+                    try
+                    {
+                        if (type.Name.Equals(constructor))
+                        {
+                            ConstructorInfo constructorInfo = type.GetConstructor(new[] { typeof(string) });
+                            object instance = constructorInfo.Invoke(new object[] { message });
+                            return instance;
+                        }
+                        else
+                        {
+                            throw new CustomMoodAnalyzerException("Constructor is not found", CustomMoodAnalyzerException.ExceptionTypes.CONSTRUCTOR_NOT_FOUND);
+                        }
+                    }
+                    catch (NullReferenceException ex)
+                    {
+                        throw new CustomMoodAnalyzerException("Constructor is not found", CustomMoodAnalyzerException.ExceptionTypes.CONSTRUCTOR_NOT_FOUND);
+                    }
+                }
+                else
+                {
+                    throw new CustomMoodAnalyzerException("Class is not found", CustomMoodAnalyzerException.ExceptionTypes.CLASS_NOT_FOUND);
+                }
+            }
+            catch (CustomMoodAnalyzerException ex)
+            {
+                throw new CustomMoodAnalyzerException(ex.Message, ex.exceptionTypes);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
     }
 }

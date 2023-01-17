@@ -14,7 +14,8 @@ namespace MoodAnalyzerProblem
             NULL_MESSAGE,
             EMPTY_MESSAGE,
             CLASS_NOT_FOUND,
-            NO_SUCH_METHOD
+            NO_SUCH_METHOD,
+            CONSTRUCTOR_NOT_FOUND,
         }
         public CustomMoodAnalyzerException(string msg, ExceptionTypes exceptionTypes) : base(msg)
         {

@@ -37,6 +37,7 @@ namespace MoodAnalyzerTestProject
 
         [TestMethod]
         [TestCategory("CustomException")]
+        //UC-3
         //T.C-3.1[Null Message]
         //T.C-3.2[Empty Message]
         public void Given_Message_Should_Return_Custom_Exception()
@@ -58,6 +59,7 @@ namespace MoodAnalyzerTestProject
 
         [TestMethod]
         [TestCategory("Reflection")]
+        //UC-4
         //T.C.4.1
         [DataRow("MoodAnalyzerProblem.MoodAnalyzer", "MoodAnalyzer")]
         //T.C.4.2
@@ -81,6 +83,28 @@ namespace MoodAnalyzerTestProject
             {
                 //Assert
                 Assert.AreEqual(expectedMsg, ex.Message);
+            }
+        }
+
+        [TestMethod]
+        [TestCategory("Reflection")]
+        //UC-5
+        public void Given_MoodAnalyser_With_Message_Using_Reflection_Return_Parameterized_Constructor()
+        {
+            //string mesaage = "I am in happy mood";
+            Object expected = new MoodAnalyzer("Happy");
+            object actual = null;
+            try
+            {
+                //AAA methodology
+                //Act
+                actual = factory.CreateMoodAnalyserParameterizedObject("MoodAnalyzer", "MoodAnalyzer", "Happy");
+                actual.Equals(expected);
+            }
+            catch (CustomMoodAnalyzerException exception)
+            {
+                //Assert
+                Assert.AreEqual("Constructor not found", exception.Message);
             }
         }
     }
