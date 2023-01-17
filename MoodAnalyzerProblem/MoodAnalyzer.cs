@@ -33,7 +33,7 @@ namespace MoodAnalyzerProblem
             }
             catch (NullReferenceException ex)
             {
-                throw new CustomMoodAnalyzerException("Message should not be empty", CustomMoodAnalyzerException.ExceptionTypes.EMPTY_MESSAGE);
+                throw new CustomMoodAnalyzerException("Message should not be null", CustomMoodAnalyzerException.ExceptionTypes.NULL_MESSAGE);
             }
         }
     }
