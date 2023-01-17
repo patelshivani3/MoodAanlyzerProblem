@@ -8,8 +8,12 @@ namespace MoodAnalyzerTestProject
     public class MoodAnalyzerTest
     {
         [TestMethod]
-        [DataRow("I am in sad mood", "sad")]
-        [DataRow("I am in Any mood", "happy")]
+        [TestCategory ("Exception") ]
+        //UC1 T.C-1.1,1.2
+        //[DataRow("I am in sad mood", "sad")]
+        //[DataRow("I am in Any mood", "happy")]
+        //UC2 T.C-2.1
+        [DataRow(null, "happy")]
         public void Given_Message_Should_Return_TypeOf_Mood(string message, string expected)
         {
             try
