@@ -1,5 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using MoodAnalyzerProblem;
+using MoodAnalyzerProblem.Reflection;
 using System;
 
 namespace MoodAnalyzerTestProject
@@ -7,6 +8,8 @@ namespace MoodAnalyzerTestProject
     [TestClass]
     public class MoodAnalyzerTest
     {
+        MoodAnalyzerFactory factory = new MoodAnalyzerFactory();
+
         [TestMethod]
         [TestCategory ("Exception") ]
         //UC1 T.C-1.1,1.2
@@ -31,7 +34,9 @@ namespace MoodAnalyzerTestProject
                 Assert.AreEqual(expected, ex.Message);
             }
         }
+
         [TestMethod]
+        [TestCategory("CustomException")]
         //T.C-3.1[Null Message]
         //T.C-3.2[Empty Message]
         public void Given_Message_Should_Return_Custom_Exception()
@@ -39,7 +44,7 @@ namespace MoodAnalyzerTestProject
             string expected = "Message should not be empty";
             try
             {
-                //arrange
+                //Arrange
                 string message = "";
                 MoodAnalyzer moodAnalyzer = new MoodAnalyzer(message);
                 //Act
@@ -48,6 +53,34 @@ namespace MoodAnalyzerTestProject
             catch (CustomMoodAnalyzerException ex)
             {
                 Assert.AreEqual(expected, ex.Message);
+            }
+        }
+
+        [TestMethod]
+        [TestCategory("Reflection")]
+        //T.C.4.1
+        [DataRow("MoodAnalyzerProblem.MoodAnalyzer", "MoodAnalyzer")]
+        //T.C.4.2
+        [DataRow("MoodAnalyzerProblem.Customer", "Customer")]
+        //T.C.4.3
+        //[DataRow("MoodAnalyzerProblem.MoodAnalyzer", "MoodAnalyzer1")]
+        public void Gievn_Class_Info_Return_Default_Constructor(string className, string constructor)
+        {
+            string expectedMsg = "Class not found";
+            
+            try
+            {
+                //AAA Methodology
+                //Arrange
+                Object expected = new MoodAnalyzer();
+                object actual = factory.CreateMoodAnalyzer(className, constructor);
+                //Act
+                actual.Equals(expected);
+            }
+            catch (CustomMoodAnalyzerException ex)
+            {
+                //Assert
+                Assert.AreEqual(expectedMsg, ex.Message);
             }
         }
     }
