@@ -17,19 +17,23 @@ namespace MoodAnalyzerProblem
         {
             try
             {
-                if (message.ToLower().Contains("sad"))
+                if (message.ToLower().Contains("happy"))
                 {
-                    return "sad";
+                    return "happy";
+                }
+                else if (message.ToLower().Equals(string.Empty))
+                {
+                    Console.WriteLine(message);
+                    throw new CustomMoodAnalyzerException("Message should not be empty", CustomMoodAnalyzerException.ExceptionTypes.EMPTY_MESSAGE);
                 }
                 else
                 {
-                    return "happy";
+                    return "sad";
                 }
             }
             catch (NullReferenceException ex)
             {
-                Console.WriteLine(ex.Message);
-                return "happy";
+                throw new CustomMoodAnalyzerException("Message should not be empty", CustomMoodAnalyzerException.ExceptionTypes.EMPTY_MESSAGE);
             }
         }
     }

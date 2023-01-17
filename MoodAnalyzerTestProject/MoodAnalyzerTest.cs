@@ -31,5 +31,24 @@ namespace MoodAnalyzerTestProject
                 Assert.AreEqual(expected, ex.Message);
             }
         }
+        [TestMethod]
+        //T.C-3.1[Null Message]
+        //T.C-3.2[Empty Message]
+        public void Given_Message_Should_Return_Custom_Exception()
+        {
+            string expected = "Message should not be empty";
+            try
+            {
+                //arrange
+                string message = "";
+                MoodAnalyzer moodAnalyzer = new MoodAnalyzer(message);
+                //Act
+                string actual = moodAnalyzer.AnalyseMood();
+            }
+            catch (CustomMoodAnalyzerException ex)
+            {
+                Assert.AreEqual(expected, ex.Message);
+            }
+        }
     }
 }
