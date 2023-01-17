@@ -11,7 +11,7 @@ namespace MoodAnalyzerTestProject
         MoodAnalyzerFactory factory = new MoodAnalyzerFactory();
 
         [TestMethod]
-        [TestCategory ("Exception") ]
+        [TestCategory("Exception")]
         //UC1 T.C-1.1,1.2
         //[DataRow("I am in sad mood", "sad")]
         //[DataRow("I am in Any mood", "happy")]
@@ -69,7 +69,7 @@ namespace MoodAnalyzerTestProject
         public void Gievn_Class_Info_Return_Default_Constructor(string className, string constructor)
         {
             string expectedMsg = "Class not found";
-            
+
             try
             {
                 //AAA Methodology
@@ -105,6 +105,34 @@ namespace MoodAnalyzerTestProject
             {
                 //Assert
                 Assert.AreEqual("Constructor not found", exception.Message);
+            }
+        }
+
+        [TestMethod]
+        [TestCategory("Reflection")]
+        //T.C.6 
+        //T.C.6.1[Happy]
+        //T.C.6.2[ExceptionThrow]
+        //T.C.6 Refactor
+
+        public void Given_MoodAnalyser_Uisng_Reflection_Invoke_Method()
+        {
+            string message = "I am in happy mood";
+            string methodName = "AnalyseMood";
+            string expected = "happy";
+            string expectedMsg = "Method not found";
+            string actual = "";
+            try
+            {
+                //AAA Methodology
+                //Act
+                actual = factory.InvokeAnalyzerMood(message, methodName);
+                Assert.AreEqual(expected, actual);
+            }
+            catch (CustomMoodAnalyzerException exception)
+            {
+                //ssert
+                Assert.AreEqual(expectedMsg, exception.Message);
             }
         }
     }
